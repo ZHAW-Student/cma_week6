@@ -1,0 +1,74 @@
+---
+title: "Exercises Week 6"
+format: html
+editor: source
+---
+# Preparation 
+```{r}
+library("readr")
+library("sf")
+
+
+wildschwein_BE <- read_delim("wildschwein_BE_2056.csv", ",") |>
+    st_as_sf(coords = c("E", "N"), crs = 2056, remove = FALSE)
+```
+
+
+# Tasks 1: Import and visualize spatial data
+
+Since Feldaufnahmen_Fanel.gpkg is a vector dataset, you can import it using read_sf(). Explore this dataset in R to answer the following questions:
+
+What information does the dataset contain?
+What is the geometry type of the dataset (possible types are: Point, Lines and Polygons)?
+What are the data types of the other columns?
+What is the coordinate system of the dataset?
+
+```{r}
+aufnahmen <- read_sf("Feldaufnahmen_Fanel.gpkg")
+```
+
+
+
+# Task 2: Annotate Trajectories from vector data
+
+We would like to know what crop was visited by which wild boar, and at what time. Since the crop data is most relevant in summer, filter your wild boar data to the months may to june first and save the output to a new variable. Overlay the filtered dataset with your fanel data to verify the spatial overlap.
+
+To sematically annotate each wild boar location with crop information, you can use a spatial join with the function st_join(). Do this and explore your annotated dataset.
+
+```{r}
+
+```
+
+
+# Task 3: Explore annotated trajectories
+
+Think of ways you could visually explore the spatio-temporal patterns of wild boar in relation to the crops. In our example below we visualize the percentage of samples in a given crop per hour.
+
+```{r}
+
+```
+
+
+# Task 4: Import and visualize vegetationindex (raster data)
+
+You have already downloaded the dataset vegetationshoehe_LFI.tif. Import this dataset
+
+In terms of raster data, we have prepared the Vegetation Height Model provided by the Swiss National Forest Inventory (NFI). This dataset contains high resolution information (1x1 Meter) on the vegetation height, which is determined from the difference between the digital surface models DSM and the digital terrain model by swisstopo (swissAlti3D). Buildings are eliminated using a combination of the ground areas of the swisstopo topographic landscape model (TLM) and spectral information from the stereo aerial photos.
+
+Import the dataset just like you imported the raster map in week 1 (using terra::rast()). Visualize the raster data using tmap (ggplot is very slow with raster data).
+
+```{r}
+
+```
+
+
+# Task 5: Annotate Trajectories from raster data
+
+Semantically annotate your wild boar locations with the vegetation index (similar as you did with the crop data in Task 2). Since you are annotating a vector dataset with information from a raster dataset, you cannot use st_join but need the function extract from the terra package. Read the help on the extract function to see what the function expects. The output should look something like this:
+
+You can now explore the spatiotemporal patterns of this new data.
+
+```{r}
+
+```
+
